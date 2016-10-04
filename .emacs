@@ -15,7 +15,16 @@
 
 ;; Loads robbyrussel theme in eshell git mode
 (eshell-git-prompt-use-theme 'powerline)
- 
+
+
+
+;; Macro to toggle complete preview of latex of an .org file
+;; Asign this macro to keybinding C-x C-o
+(fset 'org-latex-complete-preview
+      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("" 0 "%d")) arg)))
+(global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
