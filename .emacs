@@ -21,9 +21,17 @@
 ;; Macro to toggle complete preview of latex of an .org file
 ;; Asign this macro to keybinding C-x C-o
 (fset 'org-latex-complete-preview
-      (lambda (&optional arg) "Keyboard macro." (interactive "p") (kmacro-exec-ring-item (quote ("" 0 "%d")) arg)))
+      (lambda (&optional arg) "Keyboard macro." (interactive "p")
+        (kmacro-exec-ring-item
+         (quote ("" 0 "%d")) arg)
+        )
+      )
 (global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
 
+
+
+ ;; Enables Visual Line Mode to wrap lines when reaching to the window edge
+ (global-visual-line-mode t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -75,7 +83,10 @@
     (eshell-git-prompt ess markdown-mode markdown-preview-mode org)))
  '(server-mode t)
  '(standard-indent 2)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+)
+
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
