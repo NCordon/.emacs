@@ -30,6 +30,15 @@
 
 
 
+(fset 'duplicate-previous-line
+      (lambda (&optional arg) "Keyboard macro." (interactive "p")
+        (kmacro-exec-ring-item
+         (quote ([67108896 1 23 2 67108896 1 134217847 14 25 120 backspace] 0 "%d")) arg)
+        )
+      )
+(global-set-key (kbd "C-x p") 'duplicate-previous-line)
+
+
  ;; Enables Visual Line Mode to wrap lines when reaching to the window edge
  (global-visual-line-mode t)
 
