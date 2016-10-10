@@ -30,7 +30,7 @@
 
 
 
-(fset 'duplicate-previous-line
+(fset 'duplictae-previous-line
       (lambda (&optional arg) "Keyboard macro." (interactive "p")
         (kmacro-exec-ring-item
          (quote ([67108896 1 23 2 67108896 1 134217847 14 25 120 backspace] 0 "%d")) arg)
@@ -39,8 +39,13 @@
 (global-set-key (kbd "C-x p") 'duplicate-previous-line)
 
 
- ;; Enables Visual Line Mode to wrap lines when reaching to the window edge
- (global-visual-line-mode t)
+;; Adds keybingdings for Magit
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+
+
+;; Enables Visual Line Mode to wrap lines when reaching to the window edge
+(global-visual-line-mode t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -69,6 +74,8 @@
      (ess-indent-from-chain-start . t)
      (ess-indent-with-fancy-comments . t))))
  '(global-linum-mode t)
+ ;; Useful keybindings for Magit
+ '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(inferior-ess-client-command "Initial")
@@ -92,8 +99,7 @@
     (eshell-git-prompt ess markdown-mode markdown-preview-mode org)))
  '(server-mode t)
  '(standard-indent 2)
- '(tool-bar-mode nil)
-)
+ '(tool-bar-mode nil))
 
 
 (custom-set-faces
