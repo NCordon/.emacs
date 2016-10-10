@@ -44,6 +44,10 @@
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 
+;; Changes gdb command to load ARM version of debugger
+(setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
+
+
 ;; Enables Visual Line Mode to wrap lines when reaching to the window edge
 (global-visual-line-mode t)
 
