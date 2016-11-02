@@ -1,3 +1,13 @@
+;; (setq
+;;   package-archives
+;;   '(
+;;     ("melpa" . "https://melpa.org/packages/")
+;;     ("org" . "http://orgmode.org/elpa/")
+;;     ("gnu" . "http://elpa.gnu.org/packages/")
+;;     ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
+;;    )
+;; )
+
 
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
@@ -15,7 +25,6 @@
 
 ;; Loads robbyrussel theme in eshell git mode
 (eshell-git-prompt-use-theme 'powerline)
-
 
 
 ;; Macro to toggle complete preview of latex of an .org file
@@ -112,6 +121,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:background "white")))))
+
 (setq-default indent-tabs-mode nil)
+
+;; Makes possible to use latex-math-mode for writing in Org
+(require 'latex)
+
 (require 'iso-transl)
-;; (load "~/.emacs.d/floobits/floobits.el")
