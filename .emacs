@@ -1,14 +1,3 @@
-;; (setq
-;;   package-archives
-;;   '(
-;;     ("melpa" . "https://melpa.org/packages/")
-;;     ("org" . "http://orgmode.org/elpa/")
-;;     ("gnu" . "http://elpa.gnu.org/packages/")
-;;     ("melpa-stable" . "http://melpa-stable.milkbox.net/packages/")
-;;    )
-;; )
-
-
 (add-to-list 'load-path "~/.emacs.d/el-get/el-get")
 
 (unless (require 'el-get nil 'noerror)
@@ -21,7 +10,12 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 (el-get 'sync)
 
+(require 'package)
 (package-initialize)
+
+;; Makes possible to use latex-math-mode for writing in Org
+(require 'latex)
+(require 'iso-transl)
 
 ;; Loads robbyrussel theme in eshell git mode
 (eshell-git-prompt-use-theme 'powerline)
@@ -39,7 +33,7 @@
 
 
 
-(fset 'duplictae-previous-line
+(fset 'duplicate-previous-line
       (lambda (&optional arg) "Keyboard macro." (interactive "p")
         (kmacro-exec-ring-item
          (quote ([67108896 1 23 2 67108896 1 134217847 14 25 120 backspace] 0 "%d")) arg)
@@ -56,12 +50,16 @@
 ;; Changes gdb command to load ARM version of debugger
 (setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
 
+(setq-default indent-tabs-mode nil)
 
 ;; Enables Visual Line Mode to wrap lines when reaching to the window edge
 (global-visual-line-mode t)
 
 (custom-set-variables
- ;; Character to write latex command quicker. e.g. ça==\alpha
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(LaTeX-math-abbrev-prefix "ç")
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
@@ -85,7 +83,6 @@
      (ess-indent-from-chain-start . t)
      (ess-indent-with-fancy-comments . t))))
  '(global-linum-mode t)
- ;; Useful keybindings for Magit
  '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
@@ -103,11 +100,11 @@
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa-stable" . "https://stable.melpa.org/packages/"))))
+     ("melpa" . "https://melpa.org/packages/"))))
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (eshell-git-prompt ess markdown-mode markdown-preview-mode org)))
+    (auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
  '(server-mode t)
  '(standard-indent 2)
  '(tool-bar-mode nil))
@@ -120,9 +117,4 @@
  ;; If there is more than one, they won't work right.
  '(cursor ((t (:background "white")))))
 
-(setq-default indent-tabs-mode nil)
 
-;; Makes possible to use latex-math-mode for writing in Org
-(require 'latex)
-
-(require 'iso-transl)
