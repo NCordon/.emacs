@@ -47,6 +47,10 @@
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 
 
+;; Adds keybindings for ace-mc (multiple cursors)
+(global-set-key (kbd "C-)") 'ace-mc-add-multiple-cursors)
+(global-set-key (kbd "C-M-)") 'ace-mc-add-single-cursor)
+
 ;; Changes gdb command to load ARM version of debugger
 (setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
 
@@ -104,7 +108,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
+    (ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
  '(server-mode t)
  '(standard-indent 2)
  '(tool-bar-mode nil))
@@ -118,3 +122,4 @@
  '(cursor ((t (:background "white")))))
 
 
+(put 'downcase-region 'disabled nil)
