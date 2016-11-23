@@ -86,6 +86,7 @@
      (ess-indent-from-lhs arguments fun-decl-opening)
      (ess-indent-from-chain-start . t)
      (ess-indent-with-fancy-comments . t))))
+ '(fancy-splash-image "")
  '(global-linum-mode t)
  '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
@@ -94,6 +95,7 @@
  '(inferior-ess-client-name "Initial")
  '(inferior-ess-ddeclient "Initial")
  '(inhibit-startup-screen t)
+ '(initial-buffer-choice "/mnt/580F625C089B22E0/Universidad/Emacs/commands.md")
  '(mail-default-directory "~/")
  '(markdown-command "/usr/bin/pandoc")
  '(org-format-latex-options
@@ -101,6 +103,7 @@
     (:foreground default :background default :scale 1.3 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(org-latex-create-formula-image-program (quote imagemagick))
+ '(org-startup-with-inline-images t)
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
@@ -123,3 +126,12 @@
 
 
 (put 'downcase-region 'disabled nil)
+
+
+(require 'ess-site)
+;; Python,R snippets in org-mode
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python .t) (R .t)))
+
