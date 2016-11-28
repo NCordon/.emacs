@@ -135,3 +135,8 @@
  'org-babel-load-languages
  '((python .t) (R .t)))
 
+;; Enables automatic inline-displaying of images
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+
+;; Configures .s extension with asm-mode
+(add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
