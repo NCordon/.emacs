@@ -71,6 +71,7 @@
  '(custom-enabled-themes (quote (wombat)))
  '(ess-default-style (quote DEFAULT))
  '(ess-delete-dump-files t)
+ '(ess-indent-with-fancy-comments nil)
  '(ess-keep-dump-files "always")
  '(ess-own-style-list
    (quote
@@ -95,14 +96,16 @@
  '(inferior-ess-client-name "Initial")
  '(inferior-ess-ddeclient "Initial")
  '(inhibit-startup-screen t)
- '(initial-buffer-choice "/mnt/580F625C089B22E0/Universidad/Emacs/commands.md")
+ '(initial-buffer-choice nil)
  '(mail-default-directory "~/")
  '(markdown-command "/usr/bin/pandoc")
  '(org-format-latex-options
    (quote
     (:foreground default :background default :scale 1.3 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
- '(org-latex-create-formula-image-program (quote imagemagick))
+ '(org-latex-create-formula-image-program (quote imagemagick) t)
+ '(org-list-allow-alphabetical t)
+ '(org-preview-latex-default-process (quote imagemagick) t)
  '(org-startup-with-inline-images t)
  '(package-archives
    (quote
@@ -111,7 +114,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
+    (flycheck ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
  '(server-mode t)
  '(standard-indent 2)
  '(tool-bar-mode nil))
@@ -140,3 +143,7 @@
 
 ;; Configures .s extension with asm-mode
 (add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
+
+
+;; Configures flycheck for every language
+(add-hook 'after-init-hook #'global-flycheck-mode)
