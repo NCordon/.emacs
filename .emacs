@@ -103,9 +103,9 @@
    (quote
     (:foreground default :background default :scale 1.3 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
- '(org-latex-create-formula-image-program (quote imagemagick) t)
+ '(org-latex-create-formula-image-program (quote imagemagick))
  '(org-list-allow-alphabetical t)
- '(org-preview-latex-default-process (quote imagemagick) t)
+ '(org-preview-latex-default-process (quote imagemagick))
  '(org-startup-with-inline-images t)
  '(package-archives
    (quote
@@ -114,7 +114,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (flycheck ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
+    (ox-reveal flycheck ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
  '(server-mode t)
  '(standard-indent 2)
  '(tool-bar-mode nil))
@@ -136,7 +136,10 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((python .t) (R .t)))
+ '((python .t)
+   (R .t)
+   (emacs-lisp . t)
+   (js .t)))
 
 ;; Enables automatic inline-displaying of images
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -147,3 +150,14 @@
 
 ;; Configures flycheck for every language
 (add-hook 'after-init-hook #'global-flycheck-mode)
+
+
+;; Takes care of code highlightings in org-mode
+;; org-latex-packages-alist lists global packages
+(setq org-latex-listings 'minted
+      org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+
