@@ -161,3 +161,17 @@
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 
+;; Idea taken from here: http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506
+;; Ignore section in Magit
+(defun magit-ignored-files ()
+  (magit-git-items "ls-files" "--others" "--ignored" "--exclude-standard" "-z" "--directory"))
+
+(defun magit-insert-ignored-files ()
+  (-when-let (files (magit-ignored-files))
+    (magit-insert-section (ignored)
+      (magit-insert-heading "Ignored files:")
+      (magit-insert-un/tracked-files-1 files nil)
+      (insert ?\n))))
+
+;; Add ignored-files after untracked
+(magit-add-section-hook 'magit-status-sections-hook 'magit-insert-ignored-files 'magit-insert-untracked-files t)
