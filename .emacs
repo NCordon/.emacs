@@ -20,7 +20,12 @@
 ;; Loads robbyrussel theme in eshell git mode
 (eshell-git-prompt-use-theme 'powerline)
 
-
+;; Org mode
+(require 'ox)
+(require 'ox-latex)
+(setq org-src-fontify-natively t)
+(require 'org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 ;; Macro to toggle complete preview of latex of an .org file
 ;; Asign this macro to keybinding C-x C-o
 (fset 'org-latex-complete-preview
@@ -64,7 +69,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
+ ;; Used symbol in AucTex keybindings
  '(LaTeX-math-abbrev-prefix "ç")
+ ;; List of keybindings
+ '(LaTeX-math-list
+   '((?Q "mathbb{Q}" nil)
+     (?Z "mathbb{Z}" nil)
+     (?R "mathbb{R}" nil)
+     (?N "mathbb{N}" nil)))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -110,11 +123,12 @@
  '(package-archives
    (quote
     (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/"))))
+     ("melpa" . "https://melpa.org/packages/")
+     ("org" . "http://orgmode.org/elpa/"))))
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (ox-reveal flycheck ace-mc auctex websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode org)))
+    (org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
  '(server-mode t)
  '(standard-indent 2)
  '(tool-bar-mode nil))
@@ -131,15 +145,16 @@
 (put 'downcase-region 'disabled nil)
 
 
-(require 'ess-site)
 ;; Python,R snippets in org-mode
-
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((python .t)
    (R .t)
    (emacs-lisp . t)
-   (js .t)))
+   (js .t)
+   (haskell .t)))
+
+(require 'ess-site)
 
 ;; Enables automatic inline-displaying of images
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
@@ -155,10 +170,11 @@
 ;; Takes care of code highlightings in org-mode
 ;; org-latex-packages-alist lists global packages
 (setq org-latex-listings 'minted
-      org-latex-packages-alist '(("" "minted"))
+      ;;org-latex-packages-alist '(("" "minted"))
       org-latex-pdf-process
       '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
         "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(add-to-list 'org-latex-packages-alist '("" "minted" nil))
 
 
 ;; Idea taken from here: http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506
