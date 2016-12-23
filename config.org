@@ -115,32 +115,6 @@ Changes ditaa path. Requires a previous =sudo apt-get install ditaa=
 (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
 #+end_src
 
-* TODO Magit
-#+begin_src emacs-lisp
-(setq global-magit-file-mode t)
-#+end_src
-
-** Keybindings
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-#+end_src
-
-** Ignore section
-Taken from [[here]http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506]
-
-#+begin_src emacs-lisp
-(defun magit-ignored-files ()
-  (magit-git-items "ls-files" "--others" "--ignored" "--exclude-standard" "-z" "--directory"))
-
-(defun magit-insert-ignored-files ()
-  (-when-let (files (magit-ignored-files))
-    (magit-insert-section (ignored)
-      (magit-insert-heading "Ignored files:")
-      (magit-insert-un/tracked-files-1 files nil)
-      (insert ?\n))))
-#+end_src
-
 * Misc
 
 Changes gdb command to load ARM version of debugger
@@ -150,12 +124,16 @@ Changes gdb command to load ARM version of debugger
 #+end_src
 
 #+begin_src emacs-lisp
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
+ ;; Used symbol in AucTex keybindings
  '(LaTeX-math-abbrev-prefix "ç")
+ ;; List of keybindings
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -180,6 +158,7 @@ Changes gdb command to load ARM version of debugger
      (ess-indent-with-fancy-comments . t))))
  '(fancy-splash-image "")
  '(global-linum-mode t)
+ '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(inferior-ess-client-command "Initial")
@@ -203,8 +182,7 @@ Changes gdb command to load ARM version of debugger
     (org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
  '(server-mode t)
  '(standard-indent 2)
- '(tool-bar-mode nil))
-
+'(tool-bar-mode nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -230,8 +208,26 @@ Changes gdb command to load ARM version of debugger
 (add-hook 'after-init-hook #'global-flycheck-mode)
 #+end_src
 
+* TODO Magit
+** Keybindings
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+#+end_src
 
+** Ignore section
+Taken from [[here]http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506]
 
 #+begin_src emacs-lisp
+(defun magit-ignored-files ()
+  (magit-git-items "ls-files" "--others" "--ignored" "--exclude-standard" "-z" "--directory"))
+
+(defun magit-insert-ignored-files ()
+  (-when-let (files (magit-ignored-files))
+    (magit-insert-section (ignored)
+      (magit-insert-heading "Ignored files:")
+      (magit-insert-un/tracked-files-1 files nil)
+      (insert ?\n))))
+
 (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-ignored-files 'magit-insert-untracked-files t)
 #+end_src
