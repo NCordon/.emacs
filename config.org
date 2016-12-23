@@ -1,33 +1,55 @@
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
+#+TITLE: My Emacs configuration
+#+AUTHOR: ncordon
+#+STARTUP: indent
 
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
+* Global
+** Theme
+Loads robbyrussel theme in eshell git mode
 
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-(el-get 'sync)
-
-(require 'package)
-(package-initialize)
-
-;; Makes possible to use latex-math-mode for writing in Org
-(require 'latex)
-(require 'iso-transl)
-
-;; Loads robbyrussel theme in eshell git mode
+#+begin_src emacs-lisp
 (eshell-git-prompt-use-theme 'powerline)
+#+end_src
 
-;; Org mode
+** Writing
+Enables Visual Line Mode to wrap lines when reaching to the window edge
+
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
+
+Changes tabs for spaces
+
+#+begin_src emacs-lisp
+(setq-default indent-tabs-mode nil)
+#+end_src
+
+Enables Visual Line Mode to wrap lines when reaching to the window edge 
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
+
+* Org mode
+
+Loads Org-mode and latex-packages
+
+#+begin_src emacs-lisp
 (require 'ox)
+(require 'latex) 
 (require 'ox-latex)
+(require 'iso-transl)
 (setq org-src-fontify-natively t)
+#+end_src
+
+Changes bullets for Org headings.
+
+#+begin_src emacs-lisp
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-;; Macro to toggle complete preview of latex of an .org file
-;; Asign this macro to keybinding C-x C-o
+#+end_src
+
+Macro to toggle complete preview of latex of an Org file. Keybinded to C-x C-o
+
+#+begin_src emacs-lisp
 (fset 'org-latex-complete-preview
       (lambda (&optional arg) "Keyboard macro." (interactive "p")
         (kmacro-exec-ring-item
@@ -35,49 +57,105 @@
         )
       )
 (global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
+#+end_src
+
+** LaTeX
+
+Keybindings to write faster LaTeX in org Mode
+
+#+begin_src emacs-lisp
+(setq LaTeX-math-list
+   (quote
+    ((81 "mathbb{Q}" nil)
+     (90 "mathbb{Z}" nil)
+     (82 "mathbb{R}" nil)
+     (78 "mathbb{N}" nil)))
+)
+#+end_src
 
 
+Takes care of code highlightings when generating pdfs
 
-(fset 'duplicate-previous-line
-      (lambda (&optional arg) "Keyboard macro." (interactive "p")
-        (kmacro-exec-ring-item
-         (quote ([67108896 1 23 2 67108896 1 134217847 14 25 120 backspace] 0 "%d")) arg)
-        )
-      )
-(global-set-key (kbd "C-x p") 'duplicate-previous-line)
+#+begin_src emacs-lisp
+(setq org-latex-listings 'minted
+      ;;org-latex-packages-alist '(("" "minted"))
+      org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(add-to-list 'org-latex-packages-alist '("" "minted" nil))
+#+end_src
 
+** Keybindings
+Adds keybindings for ace-mc (multiple cursors)
 
-;; Adds keybingdings for Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
-
-
-;; Adds keybindings for ace-mc (multiple cursors)
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-)") 'ace-mc-add-multiple-cursors)
 (global-set-key (kbd "C-M-)") 'ace-mc-add-single-cursor)
+#+end_src 
 
-;; Changes gdb command to load ARM version of debugger
+** Programming
+Enabled languages for code snippets in org-mode
+
+#+begin_src emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python .t)
+   (R .t)
+   (ditaa .t)
+   (emacs-lisp . t)
+   (js .t)
+   (calc .t)
+   (haskell .t)))
+#+end_src
+
+** Diagrams
+Changes ditaa path. Requires a previous =sudo apt-get install ditaa=
+
+#+begin_src emacs-lisp
+(setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
+#+end_src
+
+* TODO Magit
+#+begin_src emacs-lisp
+(setq global-magit-file-mode t)
+#+end_src
+
+** Keybindings
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+#+end_src
+
+** Ignore section
+Taken from [[here]http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506]
+
+#+begin_src emacs-lisp
+(defun magit-ignored-files ()
+  (magit-git-items "ls-files" "--others" "--ignored" "--exclude-standard" "-z" "--directory"))
+
+(defun magit-insert-ignored-files ()
+  (-when-let (files (magit-ignored-files))
+    (magit-insert-section (ignored)
+      (magit-insert-heading "Ignored files:")
+      (magit-insert-un/tracked-files-1 files nil)
+      (insert ?\n))))
+#+end_src
+
+* Misc
+
+Changes gdb command to load ARM version of debugger
+
+#+begin_src emacs-lisp
 (setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
+#+end_src
 
-(setq-default indent-tabs-mode nil)
-
-;; Enables Visual Line Mode to wrap lines when reaching to the window edge
-(global-visual-line-mode t)
-
+#+begin_src emacs-lisp
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; Used symbol in AucTex keybindings
  '(LaTeX-math-abbrev-prefix "ç")
- ;; List of keybindings
- '(LaTeX-math-list
-   '((?Q "mathbb{Q}" nil)
-     (?Z "mathbb{Z}" nil)
-     (?R "mathbb{R}" nil)
-     (?N "mathbb{N}" nil)))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -102,7 +180,6 @@
      (ess-indent-with-fancy-comments . t))))
  '(fancy-splash-image "")
  '(global-linum-mode t)
- '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
  '(indent-tabs-mode nil)
  '(inferior-ess-client-command "Initial")
@@ -120,11 +197,6 @@
  '(org-list-allow-alphabetical t)
  '(org-preview-latex-default-process (quote imagemagick))
  '(org-startup-with-inline-images t)
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("melpa" . "https://melpa.org/packages/")
-     ("org" . "http://orgmode.org/elpa/"))))
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
@@ -145,15 +217,6 @@
 (put 'downcase-region 'disabled nil)
 
 
-;; Python,R snippets in org-mode
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python .t)
-   (R .t)
-   (emacs-lisp . t)
-   (js .t)
-   (haskell .t)))
-
 (require 'ess-site)
 
 ;; Enables automatic inline-displaying of images
@@ -165,29 +228,10 @@
 
 ;; Configures flycheck for every language
 (add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
 
 
-;; Takes care of code highlightings in org-mode
-;; org-latex-packages-alist lists global packages
-(setq org-latex-listings 'minted
-      ;;org-latex-packages-alist '(("" "minted"))
-      org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-(add-to-list 'org-latex-packages-alist '("" "minted" nil))
 
-
-;; Idea taken from here: http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506
-;; Ignore section in Magit
-(defun magit-ignored-files ()
-  (magit-git-items "ls-files" "--others" "--ignored" "--exclude-standard" "-z" "--directory"))
-
-(defun magit-insert-ignored-files ()
-  (-when-let (files (magit-ignored-files))
-    (magit-insert-section (ignored)
-      (magit-insert-heading "Ignored files:")
-      (magit-insert-un/tracked-files-1 files nil)
-      (insert ?\n))))
-
-;; Add ignored-files after untracked
+#+begin_src emacs-lisp
 (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-ignored-files 'magit-insert-untracked-files t)
+#+end_src
