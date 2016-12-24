@@ -8,22 +8,20 @@ Changes the path of =customization= file.
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
 #+end_src
+
 ** Theme
 Loads robbyrussel theme in eshell git mode
-
 #+begin_src emacs-lisp
 (eshell-git-prompt-use-theme 'powerline)
 #+end_src
 
-** Writing
+** Editor
 Enables Visual Line Mode to wrap lines when reaching to the window edge
-
 #+begin_src emacs-lisp
 (global-visual-line-mode t)
 #+end_src
 
 Changes tabs for spaces
-
 #+begin_src emacs-lisp
 (setq-default indent-tabs-mode nil)
 #+end_src
@@ -35,27 +33,33 @@ Enables Visual Line Mode to wrap lines when reaching to the window edge
 
 Replace selected text with what you're writing instead of just inserting it
 #+begin_src emacs-lisp
-(delete-selection-mode 1)
+(delete-selection-mode t)
 #+end_src
 
+Enables C-x C-l and C-x C-u resp. to downcase/upcase a region
+#+begin_src emacs-lisp
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+#+end_src
 ** GDB
 Changes gdb command to load ARM version of debugger
-
 #+begin_src emacs-lisp
 (setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
 #+end_src
 
 ** Files
 Configures =.s= extension with asm-mode
-
 #+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.s\\'" . asm-mode))
 #+end_src
 
+Configures flycheck for every language
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
 * Org mode
 
 Loads Org-mode and latex-packages
-
 #+begin_src emacs-lisp
 (require 'ox)
 (require 'latex) 
@@ -64,15 +68,13 @@ Loads Org-mode and latex-packages
 (setq org-src-fontify-natively t)
 #+end_src
 
-Changes bullets for Org headings.
-
+Changes bullets for Org headings
 #+begin_src emacs-lisp
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+end_src
 
 Macro to toggle complete preview of latex of an Org file. Keybinded to C-x C-o
-
 #+begin_src emacs-lisp
 (fset 'org-latex-complete-preview
       (lambda (&optional arg) "Keyboard macro." (interactive "p")
@@ -81,6 +83,11 @@ Macro to toggle complete preview of latex of an Org file. Keybinded to C-x C-o
         )
       )
 (global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
+#+end_src
+
+Enables automatic inline-displaying of images
+#+begin_src emacs-lisp
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 #+end_src
 
 ** LaTeX
@@ -132,31 +139,21 @@ Enabled languages for code snippets in org-mode
    (haskell .t)))
 #+end_src
 
-** Diagrams
+** Diagrams 
 Changes ditaa path. Requires a previous =sudo apt-get install ditaa=
 
 #+begin_src emacs-lisp
 (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
 #+end_src
 
-* Misc
-
+* Coding
+** R
+R mode
 #+begin_src emacs-lisp
-(put 'downcase-region 'disabled nil)
-
-
 (require 'ess-site)
-
-;; Enables automatic inline-displaying of images
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-
-
-
-;; Configures flycheck for every language
-(add-hook 'after-init-hook #'global-flycheck-mode)
 #+end_src
 
-* TODO Magit
+* Magit
 ** Keybindings
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
