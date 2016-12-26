@@ -9,6 +9,13 @@ Changes the path of =customization= file.
 (load custom-file)
 #+end_src
 
+Tries to run Emacs in server mode if no instance of Emacs is already running
+#+begin_src emacs-lisp
+(require 'server)
+(or (server-running-p)
+    (server-start))
+#+end_src
+
 ** Theme
 Loads robbyrussel theme in eshell git mode
 #+begin_src emacs-lisp
@@ -92,21 +99,7 @@ Enables automatic inline-displaying of images
 
 ** LaTeX
 
-Keybindings to write faster LaTeX in org Mode
-
-#+begin_src emacs-lisp
-(setq LaTeX-math-list
-   (quote
-    ((81 "mathbb{Q}" nil)
-     (90 "mathbb{Z}" nil)
-     (82 "mathbb{R}" nil)
-     (78 "mathbb{N}" nil)))
-)
-#+end_src
-
-
 Takes care of code highlightings when generating pdfs
-
 #+begin_src emacs-lisp
 (setq org-latex-listings 'minted
       ;;org-latex-packages-alist '(("" "minted"))
@@ -176,3 +169,4 @@ Taken from [[here]http://emacs.stackexchange.com/questions/28502/magit-show-igno
 
 (magit-add-section-hook 'magit-status-sections-hook 'magit-insert-ignored-files 'magit-insert-untracked-files t)
 #+end_src
+

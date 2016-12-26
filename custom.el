@@ -5,10 +5,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; Used symbol in AucTex keybindings
- '(LaTeX-math-abbrev-prefix "ç")
  ;; List of keybindings
+ 
+ ;;Used symbol in AucTex keybindings
+ '(LaTeX-math-abbrev-prefix "ç")
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -49,18 +49,24 @@
    (quote
     (:foreground default :background default :scale 1.3 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
- '(org-latex-create-formula-image-program (quote imagemagick))
+ ;; Keybindings to write faster LaTeX in org Mode 
+ '(LaTeX-math-list
+   (quote
+    ((81 "mathbb{Q}")
+     (90 "mathbb{Z}")
+     (82 "mathbb{R}")
+     (78 "mathbb{N}"))))
  '(org-list-allow-alphabetical t)
  ;; Program to generate Org images
  '(org-preview-latex-default-process (quote imagemagick))
+ '(org-latex-create-formula-image-program (quote imagemagick))
  '(org-startup-with-inline-images t)
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
     (org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
- '(server-mode t)
  '(standard-indent 2)
-'(tool-bar-mode nil))
+ '(tool-bar-mode nil))
 
 
 
