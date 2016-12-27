@@ -10,11 +10,11 @@ Changes the path of =customization= file.
 #+end_src
 
 Tries to run Emacs in server mode if no instance of Emacs is already running
-#+begin_src emacs-lisp
+
 (require 'server)
 (or (server-running-p)
     (server-start))
-#+end_src
+
 
 ** Theme
 Loads robbyrussel theme in eshell git mode
@@ -91,6 +91,12 @@ Macro to toggle complete preview of latex of an Org file. Keybinded to C-x C-o
       )
 (global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
 #+end_src
+
+Sets TODO keywords.
+#+begin_src emacs-lisp
+(setq org-todo-keywords
+'((sequence "TODO" "WORKING ON IT" "|" "DONE" "CANCELED")))
+#+end_src       
 
 Enables automatic inline-displaying of images
 #+begin_src emacs-lisp

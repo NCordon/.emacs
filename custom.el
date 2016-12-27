@@ -5,10 +5,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; List of keybindings
- 
- ;;Used symbol in AucTex keybindings
  '(LaTeX-math-abbrev-prefix "ç")
+ ;; List of keybindings for Latex-math-mode
+ '(LaTeX-math-list
+   (quote
+    ((81 "mathbb{Q}")
+     (90 "mathbb{Z}")
+     (82 "mathbb{R}")
+     (78 "mathbb{N}"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -35,31 +39,21 @@
  '(global-linum-mode t)
  '(global-magit-file-mode t)
  '(ido-mode (quote both) nil (ido))
- ;; ESS options
  '(inferior-ess-client-command "Initial")
  '(inferior-ess-client-name "Initial")
  '(inferior-ess-ddeclient "Initial")
- ;; Skips init screen
  '(inhibit-startup-screen t)
- ;; Without initial buffer
- '(initial-buffer-choice nil)
+ ;; File to open at startup
+ '(initial-buffer-choice "/home/nuwanda/.emacs.d/TODO.org")
  '(mail-default-directory "~/")
  '(markdown-command "/usr/bin/pandoc")
  '(org-format-latex-options
    (quote
     (:foreground default :background default :scale 1.3 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
                  ("begin" "$1" "$" "$$" "\\(" "\\["))))
- ;; Keybindings to write faster LaTeX in org Mode 
- '(LaTeX-math-list
-   (quote
-    ((81 "mathbb{Q}")
-     (90 "mathbb{Z}")
-     (82 "mathbb{R}")
-     (78 "mathbb{N}"))))
- '(org-list-allow-alphabetical t)
- ;; Program to generate Org images
- '(org-preview-latex-default-process (quote imagemagick))
  '(org-latex-create-formula-image-program (quote imagemagick))
+ '(org-list-allow-alphabetical t)
+ '(org-preview-latex-default-process (quote imagemagick))
  '(org-startup-with-inline-images t)
  '(package-enable-at-startup t)
  '(package-selected-packages
@@ -75,6 +69,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
- ;; Makes cursor white instead of gray
  '(cursor ((t (:background "white")))))
