@@ -149,6 +149,8 @@ Changes ditaa path. Requires a previous =sudo apt-get install ditaa=
 ** Org-ref
 Taken from README of https://github.com/jkitchin/org-ref
 #+begin_src emacs-lisp
+(require 'org-ref)
+
 (setq reftex-default-bibliography '("~/universidad/bibliography/references.bib"))
 
 (setq org-ref-bibliography-notes "~/universidad/bibliography/notes.org" 
@@ -160,9 +162,7 @@ Taken from README of https://github.com/jkitchin/org-ref
       bibtex-completion-notes-path "~/universidad/bibliography/helm-bibtex-notes")
 
 (setq bibtex-completion-pdf-open-function 'org-open-file)
-
-(require 'org-ref)
-#+end_src emacs-lisp
+#+end_src
 * Coding
 ** R
 R mode
