@@ -6,13 +6,16 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(LaTeX-math-abbrev-prefix "ç")
- ;; List of keybindings for Latex-math-mode
  '(LaTeX-math-list
    (quote
     ((81 "mathbb{Q}")
      (90 "mathbb{Z}")
      (82 "mathbb{R}")
-     (78 "mathbb{N}"))))
+     (78 "mathbb{N}")
+     (49 "mathcal{X}")
+     (50 "mathcal{Y}")
+     (51 "mathcal{D}")
+     (52 "mathcal{H}"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(custom-buffer-indent 2)
@@ -43,7 +46,6 @@
  '(inferior-ess-client-name "Initial")
  '(inferior-ess-ddeclient "Initial")
  '(inhibit-startup-screen t)
- ;; File to open at startup
  '(initial-buffer-choice "/home/nuwanda/.emacs.d/TODO.org")
  '(mail-default-directory "~/")
  '(markdown-command "/usr/bin/pandoc")
@@ -58,7 +60,7 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
+    (org-ref org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
  '(standard-indent 2)
  '(tool-bar-mode nil))
 

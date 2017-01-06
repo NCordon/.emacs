@@ -64,6 +64,7 @@ Configures flycheck for every language
 #+begin_src emacs-lisp
 (add-hook 'after-init-hook #'global-flycheck-mode)
 #+end_src
+** My macros
 * Org mode
 
 Loads Org-mode and latex-packages
@@ -145,6 +146,23 @@ Changes ditaa path. Requires a previous =sudo apt-get install ditaa=
 (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar")
 #+end_src
 
+** Org-ref
+Taken from README of https://github.com/jkitchin/org-ref
+#+begin_src emacs-lisp
+(setq reftex-default-bibliography '("~/universidad/bibliography/references.bib"))
+
+(setq org-ref-bibliography-notes "~/universidad/bibliography/notes.org" 
+      org-ref-default-bibliography '("~/universidad/bibliography/references.bib")
+      org-ref-pdf-directory "~/universidad/bibliography/bibtex-pdfs/")
+
+(setq bibtex-completion-bibliography  "~/universidad/bibliography/notes.org"
+      bibtex-completion-library-path "~/universidad/bibliography/bibtex-pdfs"
+      bibtex-completion-notes-path "~/universidad/bibliography/helm-bibtex-notes")
+
+(setq bibtex-completion-pdf-open-function 'org-open-file)
+
+(require 'org-ref)
+#+end_src emacs-lisp
 * Coding
 ** R
 R mode
