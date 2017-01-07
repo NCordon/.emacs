@@ -111,8 +111,10 @@ Takes care of code highlightings when generating pdfs
 (setq org-latex-listings 'minted
       ;;org-latex-packages-alist '(("" "minted"))
       org-latex-pdf-process
-      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+      '("latexmk -pdflatex='lualatex -shell-escape -interaction nonstopmode' -pdf -f  %f"))
+     ;; '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     ;;   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     ;;   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 (add-to-list 'org-latex-packages-alist '("" "minted" nil))
 #+end_src
 
