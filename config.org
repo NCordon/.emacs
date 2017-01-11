@@ -9,13 +9,6 @@ Changes the path of =customization= file.
 (load custom-file)
 #+end_src
 
-Tries to run Emacs in server mode if no instance of Emacs is already running
-
-(require 'server)
-(or (server-running-p)
-    (server-start))
-
-
 ** Theme
 Loads robbyrussel theme in eshell git mode
 #+begin_src emacs-lisp
@@ -45,8 +38,8 @@ Replace selected text with what you're writing instead of just inserting it
 
 Enables C-x C-l and C-x C-u resp. to downcase/upcase a region
 #+begin_src emacs-lisp
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled t)
+(put 'upcase-region 'disabled t)
 #+end_src
 ** GDB
 Changes gdb command to load ARM version of debugger
@@ -171,14 +164,12 @@ R mode
 #+begin_src emacs-lisp
 (require 'ess-site)
 #+end_src
-
 * Magit
 ** Keybindings
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 #+end_src
-
 ** Ignore section
 Taken from [[here]http://emacs.stackexchange.com/questions/28502/magit-show-ignored-files/28506#28506]
 
