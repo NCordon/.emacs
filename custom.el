@@ -18,6 +18,7 @@
      (52 "mathcal{H}"))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
+ '(css-indent-offset 2)
  '(custom-buffer-indent 2)
  '(custom-enabled-themes (quote (wombat)))
  '(ess-default-style (quote DEFAULT))
@@ -62,7 +63,8 @@
    (quote
     (org-ref org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket julia-mode markdown-preview-eww yaml-mode magit deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
  '(standard-indent 2)
- '(tool-bar-mode nil))
+ '(tool-bar-mode nil)
+ '(vhdl-beautify-options (quote (t t t t nil))))
 
 
 

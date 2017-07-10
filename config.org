@@ -131,7 +131,8 @@ Enabled languages for code snippets in org-mode
    (emacs-lisp . t)
    (js .t)
    (calc .t)
-   (haskell .t)))
+   (haskell .t)
+   (sh .t)))
 #+end_src
 
 ** Diagrams 
@@ -164,6 +165,17 @@ R mode
 #+begin_src emacs-lisp
 (require 'ess-site)
 #+end_src
+** Python
+Fuente: [[https://www.emacswiki.org/emacs/IndentingPython][EmacsWiki]]
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+	    (lambda ()
+		    (setq-default indent-tabs-mode nil)
+		    (setq-default tab-width 4)
+		    (setq-default py-indent-tabs-mode t)
+	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+#+end_src
+
 * Magit
 ** Keybindings
 #+begin_src emacs-lisp
