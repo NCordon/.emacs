@@ -2,6 +2,18 @@
 #+AUTHOR: ncordon
 #+STARTUP: indent
 
+* Bootstrap packages
+Install some needed packages
+#+begin_src emacs-lisp
+(use-package with-editor :ensure t)
+(use-package websocket :ensure t)
+(use-package tablist :ensure t)
+(use-package key-chord :ensure t)
+(use-package hydra :ensure t)
+(use-package ivy :ensure t)
+(use-package pdf-tools :ensure t)
+#+end_src
+
 * Global
 Changes the path of =customization= file.
 #+begin_src emacs-lisp
@@ -12,6 +24,7 @@ Changes the path of =customization= file.
 ** Theme
 Loads robbyrussel theme in eshell git mode
 #+begin_src emacs-lisp
+(use-package eshell-git-prompt :ensure t)
 (eshell-git-prompt-use-theme 'powerline)
 #+end_src
 
@@ -41,11 +54,6 @@ Enables C-x C-l and C-x C-u resp. to downcase/upcase a region
 (put 'downcase-region 'disabled t)
 (put 'upcase-region 'disabled t)
 #+end_src
-** GDB
-Changes gdb command to load ARM version of debugger
-#+begin_src emacs-lisp
-(setq gud-gdb-command-name "/usr/bin/arm-none-eabi-gdb")
-#+end_src
 
 ** Files
 Configures =.s= extension with asm-mode
@@ -55,13 +63,44 @@ Configures =.s= extension with asm-mode
 
 Configures flycheck for every language
 #+begin_src emacs-lisp
+(use-package flycheck :ensure t)
+(use-package flycheck-haskell :ensure t)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 #+end_src
-** My macros
+* Coding
+#+begin_src emacs-lisp
+(use-package ess :ensure t)
+(use-package sage-shell-mode :ensure t)
+(use-package yaml-mode :ensure t)
+#+end_src
+
+** R
+R mode
+#+begin_src emacs-lisp
+(require 'ess-site)
+#+end_src
+** Python
+Fuente: [[https://www.emacswiki.org/emacs/IndentingPython][EmacsWiki]]
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+	    (lambda ()
+		    (setq-default indent-tabs-mode nil)
+		    (setq-default tab-width 4)
+		    (setq-default py-indent-tabs-mode t)
+	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
+#+end_src
 * Org mode
 
 Loads Org-mode and latex-packages
 #+begin_src emacs-lisp
+(use-package org-ref :ensure t)
+(use-package markdown-mode :ensure t)
+(use-package markdown-preview-eww :ensure t)
+(use-package org-bullets :ensure t)
+(use-package helm :ensure t)
+(use-package biblio :ensure t)
+(use-package auctex :defer t :ensure t)
+
 (require 'ox)
 (require 'latex) 
 (require 'ox-latex)
@@ -86,7 +125,7 @@ Macro to toggle complete preview of latex of an Org file. Keybinded to C-x C-o
 (global-set-key (kbd "C-x C-o") 'org-latex-complete-preview)
 #+end_src
 
-Sets TODO keywords.
+Sets TODO keywords for Org's lists states.
 #+begin_src emacs-lisp
 (setq org-todo-keywords
 '((sequence "TODO" "WORKING ON IT" "|" "DONE" "CANCELED")))
@@ -115,6 +154,9 @@ Takes care of code highlightings when generating pdfs
 Adds keybindings for ace-mc (multiple cursors)
 
 #+begin_src emacs-lisp
+(use-package ace-mc :ensure t)
+(use-package ace-jump-mode :ensure t)
+(use-package multiple-cursors :ensure t)
 (global-set-key (kbd "C-)") 'ace-mc-add-multiple-cursors)
 (global-set-key (kbd "C-M-)") 'ace-mc-add-single-cursor)
 #+end_src 
@@ -159,24 +201,12 @@ Taken from README of https://github.com/jkitchin/org-ref
 
 (setq bibtex-completion-pdf-open-function 'org-open-file)
 #+end_src
-* Coding
-** R
-R mode
-#+begin_src emacs-lisp
-(require 'ess-site)
-#+end_src
-** Python
-Fuente: [[https://www.emacswiki.org/emacs/IndentingPython][EmacsWiki]]
-#+begin_src emacs-lisp
-(add-hook 'python-mode-hook
-	    (lambda ()
-		    (setq-default indent-tabs-mode nil)
-		    (setq-default tab-width 4)
-		    (setq-default py-indent-tabs-mode t)
-	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
-#+end_src
 
 * Magit
+#+begin_src emacs-lisp
+(use-package magit :ensure t)
+#+end_src
+
 ** Keybindings
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x g") 'magit-status)
