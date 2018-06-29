@@ -8,14 +8,12 @@
  '(LaTeX-math-abbrev-prefix "ç")
  '(LaTeX-math-list
    (quote
-    ((81 "mathbb{Q}")
-     (90 "mathbb{Z}")
-     (82 "mathbb{R}")
-     (78 "mathbb{N}")
-     (49 "mathcal{X}")
-     (50 "mathcal{Y}")
-     (51 "mathcal{D}")
-     (52 "mathcal{H}"))))
+    ((81 "mathbb{Q}" nil nil)
+     (90 "mathbb{Z}" nil nil)
+     (82 "mathbb{R}" nil nil)
+     (78 "mathbb{N}" nil nil)
+     (186 "Leftrightarrow" nil nil)
+     (170 "Longleftrightarrow" nil nil))))
  '(ansi-color-faces-vector
    [default default default italic underline success warning error])
  '(css-indent-offset 2)
@@ -61,7 +59,8 @@
  '(package-enable-at-startup t)
  '(package-selected-packages
    (quote
-    (magit org-ref org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket markdown-preview-eww yaml-mode deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
+    (org-capture-pop-frame projectile ensime elm-mode log4e gntp auctex p use-package magit org-ref org-beautify-theme org-plus-contrib org org-bullets flycheck-haskell ox-reveal flycheck ace-mc websocket markdown-preview-eww yaml-mode deferred try ob-sagemath sage-shell-mode eshell-git-prompt ess markdown-mode)))
+ '(projectile-mode t nil (projectile))
  '(standard-indent 2)
  '(tool-bar-mode nil)
  '(vhdl-beautify-options (quote (t t t t nil))))

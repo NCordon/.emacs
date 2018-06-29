@@ -12,6 +12,8 @@ Install some needed packages
 (use-package hydra :ensure t)
 (use-package ivy :ensure t)
 (use-package pdf-tools :ensure t)
+(use-package log4e :ensure t)
+(use-package gntp :ensure t)
 #+end_src
 
 * Global
@@ -21,6 +23,20 @@ Changes the path of =customization= file.
 (load custom-file)
 #+end_src
 
+** Journaling
+Extracted from [[http://sachachua.com/blog/2014/11/using-org-mode-keep-process-journal/][Sasha Chua's blog]].
+
+#+begin_src emacs-lisp
+(setq org-capture-templates
+      '(;; other entries
+        ("j" "Journal entry" plain
+         (file+datetree+prompt "/run/media/nuwanda/Datos/Era7/journal.org")
+         "- %?\n")
+        ;; other entries
+        ))
+
+(bind-key "C-c r" 'org-capture)
+#+end_src
 ** Theme
 Loads robbyrussel theme in eshell git mode
 #+begin_src emacs-lisp
@@ -89,6 +105,7 @@ Fuente: [[https://www.emacswiki.org/emacs/IndentingPython][EmacsWiki]]
 		    (setq-default py-indent-tabs-mode t)
 	    (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 #+end_src
+
 * Org mode
 
 Loads Org-mode and latex-packages
@@ -174,7 +191,8 @@ Enabled languages for code snippets in org-mode
    (js .t)
    (calc .t)
    (haskell .t)
-   (sh .t)))
+   (sh .t)
+   (octave .t)))
 #+end_src
 
 ** Diagrams 
