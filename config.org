@@ -30,7 +30,7 @@ Extracted from [[http://sachachua.com/blog/2014/11/using-org-mode-keep-process-j
 (setq org-capture-templates
       '(;; other entries
         ("j" "Journal entry" plain
-         (file+datetree+prompt "/run/media/nuwanda/Datos/Era7/journal.org")
+         (file+datetree+prompt "/run/media/nuwanda/Datos/journal.org")
          "- %?\n")
         ;; other entries
         ))
@@ -167,6 +167,19 @@ Takes care of code highlightings when generating pdfs
 (add-to-list 'org-latex-packages-alist '("" "minted" nil))
 #+end_src
 
+Document class for the graduate thesis, from [[https://github.com/mroman42/.emacs.d/blob/b0fb2202ad/config.org#scrrept][M42 configuration]] and [[https://tex.stackexchange.com/questions/364914/using-koma-script-article-with-org-mode][StackOverflow]]:
+
+#+begin_src emacs-lisp
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("scrreprt" "\\documentclass{scrreprt}"
+                 ("\\chapter{%s}" . "\\chapter*{%s}")
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}"))))
+#+end_src
+
 ** Keybindings
 Adds keybindings for ace-mc (multiple cursors)
 
@@ -191,7 +204,6 @@ Enabled languages for code snippets in org-mode
    (js .t)
    (calc .t)
    (haskell .t)
-   (sh .t)
    (octave .t)))
 #+end_src
 
